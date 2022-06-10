@@ -1,7 +1,9 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
+import com.openclassrooms.entrevoisins.events.DetailNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
@@ -89,5 +92,21 @@ public class NeighbourFragment extends Fragment {
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         mApiService.deleteNeighbour(event.neighbour);
         initList();
+    }
+
+    /**
+     * View neighbour details if the user clicks on a item
+     * @param event
+     */
+
+    @Subscribe
+    public void onDetailNeighbour(DetailNeighbourEvent event) {
+        Intent intent = new Intent().setClass(this.getContext(), DetailNeighbourActivity.class);
+        intent.putExtra("name", event.neighbour.getName());
+        intent.putExtra("address", event.neighbour.getAddress());
+        intent.putExtra("aboutme", event.neighbour.getAboutMe());
+        intent.putExtra("avatar_url_string", event.neighbour.getAvatarUrl().toString());
+        ActivityCompat.startActivity(this.getContext(), intent, null);
+
     }
 }
