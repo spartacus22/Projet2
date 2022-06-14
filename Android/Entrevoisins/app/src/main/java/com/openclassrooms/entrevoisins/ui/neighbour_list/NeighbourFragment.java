@@ -104,6 +104,7 @@ public class NeighbourFragment extends Fragment {
         Intent intent = new Intent().setClass(this.getContext(), DetailNeighbourActivity.class);
         intent.putExtra("name", event.neighbour.getName());
         intent.putExtra("address", event.neighbour.getAddress());
+        intent.putExtra("phone", event.neighbour.getPhoneNumber());
         intent.putExtra("aboutme", event.neighbour.getAboutMe());
         intent.putExtra("avatar_url_string", event.neighbour.getAvatarUrl().toString());
         ActivityCompat.startActivity(this.getContext(), intent, null);

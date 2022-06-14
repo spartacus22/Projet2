@@ -13,10 +13,11 @@
         <entry key="app/src/main/res/drawable/ic_delete_white_24dp.xml" value="0.2785" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2785" />
         <entry key="app/src/main/res/drawable/ic_person_add_white_24dp.xml" value="0.2785" />
+        <entry key="app/src/main/res/drawable/ic_place.xml" value="0.256" />
         <entry key="app/src/main/res/drawable/ic_star_border_white_24dp.xml" value="0.2785" />
         <entry key="app/src/main/res/drawable/ic_star_white_24dp.xml" value="0.2785" />
         <entry key="app/src/main/res/layout/activity_add_neighbour.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_detail_neighbour.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_detail_neighbour.xml" value="0.31196581196581197" />
         <entry key="app/src/main/res/layout/activity_list_neighbour.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_view_neighbour.xml" value="0.2971014492753623" />
         <entry key="app/src/main/res/layout/fragment_list_neighbour.xml" value="0.2617753623188406" />

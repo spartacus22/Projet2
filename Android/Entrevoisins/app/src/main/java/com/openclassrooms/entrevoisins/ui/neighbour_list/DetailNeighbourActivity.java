@@ -42,6 +42,12 @@ public class DetailNeighbourActivity extends AppCompatActivity {
     @BindView(R.id.aboutme2)
     TextView aboutme;
 
+    @BindView(R.id.phone2)
+    TextView phone;
+
+    @BindView(R.id.favorite_neighbour)
+    ImageView favori;
+
     private NeighbourApiService mApiService;
     private String mNeighbourImage;
 
@@ -70,6 +76,7 @@ public class DetailNeighbourActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String neighbour_name = intent.getStringExtra("name");
         String neighbour_address = intent.getStringExtra("address");
+        String neighbour_phone = intent.getStringExtra("phone");
         String neighbour_aboutme = intent.getStringExtra("aboutme");
         String neighbour_url_string = intent.getStringExtra("avatar_url_string");
         Uri neighbour_url = Uri.parse(neighbour_url_string);
@@ -78,6 +85,7 @@ public class DetailNeighbourActivity extends AppCompatActivity {
         name3.setText(neighbour_name);
         address.setText(neighbour_address);
         aboutme.setText(neighbour_aboutme);
+        phone.setText(neighbour_phone);
 
         Glide.with(this)
                 .load(neighbour_url)
