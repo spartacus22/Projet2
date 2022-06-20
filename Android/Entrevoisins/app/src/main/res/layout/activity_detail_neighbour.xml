@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,9 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.neighbour_list.DetailNeighbourActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#E7E6E4"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,131 +25,139 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_marginTop="0dp"
-                tools:="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                tools:src="@drawable/ic_account" />
 
             <TextView
                 android:id="@+id/name3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="250dp"
+                tools:text="Sylvain"
                 android:textColor="#FFFFFF"
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5sp"
-                android:layout_marginTop="310sp"
-                android:layout_marginRight="5sp"
-                android:layout_marginBottom="5sp"
-                app:cardBackgroundColor="#FFFFFF"
-                card_view:cardCornerRadius="4dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/name2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="25dp"
-                        tools:text="Chloe"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/address2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="25dp"
-                        android:paddingLeft="10dp"
-                        tools:text="Saint-Piere du mont"
-                        android:drawableLeft="@drawable/ic_place"
-                        android:drawablePadding="8dp"/>
-
-                    <TextView
-                        android:id="@+id/phone2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="25dp"
-                        tools:text="0878767888888"
-                        android:drawablePadding="8dp"
-                        android:drawableLeft="@drawable/ic_phone" />
-
-                    <TextView
-                        android:id="@+id/facebook"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="25dp"
-                        android:paddingBottom="15dp"
-                        tools:text="www.facebook.fr/caroline"
-                        android:drawablePadding="8dp"
-                        android:drawableLeft="@drawable/ic_baseline_web_24" />
-
-
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_view2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5sp"
-                android:layout_marginTop="530dp"
-                android:layout_marginRight="5sp"
-                android:layout_marginBottom="5sp"
-                app:cardBackgroundColor="#FFFFFF"
-                card_view:cardCornerRadius="4dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="20dp"
-                        android:layout_marginLeft="10dp"
-                        android:text="A propos de moi"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/aboutme2"
-                        tools:text="Pas initiée, je recherche une ou plusieurs personnes susceptibles de m'accompagner !J'aime les jeux de cartes tels la belote et le tarot.."
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="20dp"
-                        android:paddingBottom="20dp"
-                        android:paddingLeft="10dp" />
-
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/favorite_neighbour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="270dp"
-                android:layout_marginRight="5dp"
-                app:backgroundTint="@color/colorPrimaryDark"
-                app:srcCompat="@drawable/ic_star_border_white_24dp" />
 
         </FrameLayout>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10sp"
+            android:layout_marginBottom="5sp"
+            app:cardBackgroundColor="#FFFFFF"
+            card_view:cardCornerRadius="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/name2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="15dp"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:text="Chloe" />
+
+                <TextView
+                    android:id="@+id/address2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_place"
+                    android:drawablePadding="8dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="25dp"
+                    tools:text="Saint-Piere du mont" />
+
+                <TextView
+                    android:id="@+id/phone2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_phone"
+                    android:drawablePadding="8dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="25dp"
+                    tools:text="0878767888888" />
+
+                <TextView
+                    android:id="@+id/facebook"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_baseline_web_24"
+                    android:drawablePadding="8dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="25dp"
+                    android:paddingBottom="15dp"
+                    tools:text="www.facebook.fr/caroline" />
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="10sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginBottom="5sp"
+            app:cardBackgroundColor="#FFFFFF"
+            card_view:cardCornerRadius="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:paddingTop="15dp"
+                    android:text="A propos de moi"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/aboutme2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="20dp"
+                    tools:text="Pas initiée, je recherche une ou plusieurs personnes susceptibles de m'accompagner !J'aime les jeux de cartes tels la belote et le tarot.." />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/favorite_neighbour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="270dp"
+        android:layout_marginRight="5dp"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:srcCompat="@drawable/ic_star_border_white_24dp" />
+
+
+
+</FrameLayout>

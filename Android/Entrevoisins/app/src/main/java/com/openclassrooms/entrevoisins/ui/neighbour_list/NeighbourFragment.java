@@ -25,6 +25,8 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 
 
+
+
 public class NeighbourFragment extends Fragment {
 
     private NeighbourApiService mApiService;
@@ -101,13 +103,18 @@ public class NeighbourFragment extends Fragment {
 
     @Subscribe
     public void onDetailNeighbour(DetailNeighbourEvent event) {
-        Intent intent = new Intent().setClass(this.getContext(), DetailNeighbourActivity.class);
+        Neighbour n = event.neighbour;
+        Intent intent = new Intent(this.getContext(), DetailNeighbourActivity.class);
+        intent.putExtra(DetailNeighbourActivity.NEIGHBOUR_KEY, n);
+        /** Intent intent = new Intent().setClass(this.getContext(), DetailNeighbourActivity.class);
         intent.putExtra("name", event.neighbour.getName());
         intent.putExtra("address", event.neighbour.getAddress());
         intent.putExtra("phone", event.neighbour.getPhoneNumber());
         intent.putExtra("aboutme", event.neighbour.getAboutMe());
         intent.putExtra("avatar_url_string", event.neighbour.getAvatarUrl().toString());
+        intent.putExtra("favori", event.neighbour.getFavori().toString());**/
         ActivityCompat.startActivity(this.getContext(), intent, null);
+        //startActivity(intent);
 
     }
 }

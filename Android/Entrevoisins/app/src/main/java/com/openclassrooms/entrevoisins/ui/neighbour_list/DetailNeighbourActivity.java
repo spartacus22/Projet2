@@ -27,6 +27,8 @@ import butterknife.OnClick;
 
 public class DetailNeighbourActivity extends AppCompatActivity {
 
+    public static String NEIGHBOUR_KEY="neighbourKey";
+
     @BindView(R.id.avatar2)
     ImageView avatar;
 
@@ -50,6 +52,7 @@ public class DetailNeighbourActivity extends AppCompatActivity {
 
     private NeighbourApiService mApiService;
     private String mNeighbourImage;
+    private Neighbour detailNeighbour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +77,23 @@ public class DetailNeighbourActivity extends AppCompatActivity {
 
     private void init() {
         Intent intent = getIntent();
+        detailNeighbour = (Neighbour) intent.getSerializableExtra(NEIGHBOUR_KEY);
+        /**
         String neighbour_name = intent.getStringExtra("name");
         String neighbour_address = intent.getStringExtra("address");
         String neighbour_phone = intent.getStringExtra("phone");
         String neighbour_aboutme = intent.getStringExtra("aboutme");
         String neighbour_url_string = intent.getStringExtra("avatar_url_string");
+        // String neighbour_favori = intent.getStringExtra("favori");
+        Uri neighbour_url = Uri.parse(neighbour_url_string);**/
+
+        String neighbour_name = detailNeighbour.getName();
+        String neighbour_address = detailNeighbour.getAddress() ;
+        String neighbour_phone = detailNeighbour.getPhoneNumber();
+        String neighbour_aboutme = detailNeighbour.getAboutMe();
+        String neighbour_url_string = detailNeighbour.getAvatarUrl();
         Uri neighbour_url = Uri.parse(neighbour_url_string);
+
 
         name.setText(neighbour_name);
         name3.setText(neighbour_name);
@@ -91,5 +105,22 @@ public class DetailNeighbourActivity extends AppCompatActivity {
                 .load(neighbour_url)
                 .into(avatar);
         };
+
+    @OnClick(R.id.favorite_neighbour)
+    void favoriteNeighbour() {
+
+        Boolean flag = detailNeighbour.getFavori();
+
+        if (!flag) {
+            favori.setImageResource(R.drawable.ic_star_white_24dp);
+            detailNeighbour.setFavori(true);
+        }
+        else {
+            favori.setImageResource(R.drawable.ic_star_border_white_24dp);
+            detailNeighbour.setFavori(false);
+
+        }
+
+    }
 
 }
