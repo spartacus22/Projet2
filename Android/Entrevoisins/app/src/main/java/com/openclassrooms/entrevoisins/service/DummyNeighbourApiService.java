@@ -24,6 +24,21 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
      * {@inheritDoc}
      */
     @Override
+    public List<Neighbour> getNeighboursFavorite() {
+        List<Neighbour> neighboursFavorite = neighbours;
+        for (int i = 0; i < neighboursFavorite.size();i++) {
+            if (!neighboursFavorite.get(i).getFavori()) {
+                neighboursFavorite.remove(i);
+            }
+        }
+        return neighboursFavorite;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void deleteNeighbour(Neighbour neighbour) {
         neighbours.remove(neighbour);
     }

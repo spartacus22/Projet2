@@ -18,8 +18,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
+import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
+import com.openclassrooms.entrevoisins.events.FavoriteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +55,9 @@ public class DetailNeighbourActivity extends AppCompatActivity {
     @BindView(R.id.favorite_neighbour)
     ImageView favori;
 
+    @BindView(R.id.backarrow)
+    ImageView backarrow;
+
     private NeighbourApiService mApiService;
     private String mNeighbourImage;
     private Neighbour detailNeighbour;
@@ -59,7 +67,8 @@ public class DetailNeighbourActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_neighbour);
         ButterKnife.bind(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().hide();
         mApiService = DI.getNeighbourApiService();
         init();
     }
@@ -78,33 +87,31 @@ public class DetailNeighbourActivity extends AppCompatActivity {
     private void init() {
         Intent intent = getIntent();
         detailNeighbour = (Neighbour) intent.getSerializableExtra(NEIGHBOUR_KEY);
-        /**
-        String neighbour_name = intent.getStringExtra("name");
-        String neighbour_address = intent.getStringExtra("address");
-        String neighbour_phone = intent.getStringExtra("phone");
-        String neighbour_aboutme = intent.getStringExtra("aboutme");
-        String neighbour_url_string = intent.getStringExtra("avatar_url_string");
-        // String neighbour_favori = intent.getStringExtra("favori");
-        Uri neighbour_url = Uri.parse(neighbour_url_string);**/
 
-        String neighbour_name = detailNeighbour.getName();
-        String neighbour_address = detailNeighbour.getAddress() ;
-        String neighbour_phone = detailNeighbour.getPhoneNumber();
-        String neighbour_aboutme = detailNeighbour.getAboutMe();
-        String neighbour_url_string = detailNeighbour.getAvatarUrl();
-        Uri neighbour_url = Uri.parse(neighbour_url_string);
+        name.setText(detailNeighbour.getName());
+        name3.setText(detailNeighbour.getName());
+        address.setText(detailNeighbour.getAddress());
+        aboutme.setText(detailNeighbour.getAboutMe());
+        phone.setText(detailNeighbour.getPhoneNumber());
 
-
-        name.setText(neighbour_name);
-        name3.setText(neighbour_name);
-        address.setText(neighbour_address);
-        aboutme.setText(neighbour_aboutme);
-        phone.setText(neighbour_phone);
-
+        Uri neighbour_url = Uri.parse(detailNeighbour.getAvatarUrl());
         Glide.with(this)
                 .load(neighbour_url)
                 .into(avatar);
         };
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+
+    }
 
     @OnClick(R.id.favorite_neighbour)
     void favoriteNeighbour() {
@@ -114,13 +121,30 @@ public class DetailNeighbourActivity extends AppCompatActivity {
         if (!flag) {
             favori.setImageResource(R.drawable.ic_star_white_24dp);
             detailNeighbour.setFavori(true);
+            EventBus.getDefault().post(new FavoriteNeighbourEvent(detailNeighbour));
+
         }
         else {
             favori.setImageResource(R.drawable.ic_star_border_white_24dp);
             detailNeighbour.setFavori(false);
+            EventBus.getDefault().post(new FavoriteNeighbourEvent(detailNeighbour));
 
         }
-
     }
+
+
+    @OnClick(R.id.backarrow)
+    void backScreen() {
+        //Intent i = new Intent(this, ListNeighbourActivity.class);
+        //startActivity(i);
+        this.onBackPressed();
+    }
+
+    @Subscribe
+    public void onFavoriteNeighbour(FavoriteNeighbourEvent event) {
+        Neighbour n = event.neighbour;
+        mApiService.createNeighbour(n);
+    }
+
 
 }
