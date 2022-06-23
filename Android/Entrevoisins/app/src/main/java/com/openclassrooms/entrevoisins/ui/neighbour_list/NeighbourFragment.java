@@ -25,15 +25,11 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
-
-
-
 public class NeighbourFragment extends Fragment {
 
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
     private RecyclerView mRecyclerView;
-
 
     /**
      * Create and return a new instance
@@ -107,10 +103,14 @@ public class NeighbourFragment extends Fragment {
     public void onDetailNeighbour(DetailNeighbourEvent event) {
         Neighbour n = event.neighbour;
         Intent intent = new Intent(this.getContext(), DetailNeighbourActivity.class);
+        mApiService.deleteNeighbour(n);
         intent.putExtra(DetailNeighbourActivity.NEIGHBOUR_KEY, n);
         ActivityCompat.startActivity(this.getContext(), intent, null);
     }
 
-
+    @Subscribe
+    public void onFavoriteNeighbour(FavoriteNeighbourEvent event) {
+        Neighbour n = event.neighbour;
+    }
 
 }

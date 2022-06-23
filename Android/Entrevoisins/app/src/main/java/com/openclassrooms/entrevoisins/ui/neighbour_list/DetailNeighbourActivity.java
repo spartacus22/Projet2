@@ -19,6 +19,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
+import com.openclassrooms.entrevoisins.events.DetailNeighbourEvent;
 import com.openclassrooms.entrevoisins.events.FavoriteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
@@ -86,8 +87,14 @@ public class DetailNeighbourActivity extends AppCompatActivity {
 
     private void init() {
         Intent intent = getIntent();
-        detailNeighbour = (Neighbour) intent.getSerializableExtra(NEIGHBOUR_KEY);
+        // detailNeighbour = (Neighbour) intent.getSerializableExtra(NEIGHBOUR_KEY);
 
+        Bundle b = getIntent().getExtras();
+        if (b != null) {
+            detailNeighbour = (Neighbour) getIntent().getExtras()
+                    .getSerializable(NEIGHBOUR_KEY);
+
+        }
         name.setText(detailNeighbour.getName());
         name3.setText(detailNeighbour.getName());
         address.setText(detailNeighbour.getAddress());
@@ -100,17 +107,21 @@ public class DetailNeighbourActivity extends AppCompatActivity {
                 .into(avatar);
         };
 
+
     @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra(NEIGHBOUR_KEY, detailNeighbour);
+        setResult(RESULT_OK, intent);
+        finish();
+        super.onBackPressed();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-
+    @OnClick(R.id.backarrow)
+    void backScreen() {
+        //Intent i = new Intent(this, ListNeighbourActivity.class);
+        //startActivity(i);
+        finish();
     }
 
     @OnClick(R.id.favorite_neighbour)
@@ -122,29 +133,13 @@ public class DetailNeighbourActivity extends AppCompatActivity {
             favori.setImageResource(R.drawable.ic_star_white_24dp);
             detailNeighbour.setFavori(true);
             EventBus.getDefault().post(new FavoriteNeighbourEvent(detailNeighbour));
-
+            EventBus.getDefault().post(new DetailNeighbourEvent(detailNeighbour));
         }
         else {
             favori.setImageResource(R.drawable.ic_star_border_white_24dp);
             detailNeighbour.setFavori(false);
             EventBus.getDefault().post(new FavoriteNeighbourEvent(detailNeighbour));
-
+            EventBus.getDefault().post(new DetailNeighbourEvent(detailNeighbour));
         }
     }
-
-
-    @OnClick(R.id.backarrow)
-    void backScreen() {
-        //Intent i = new Intent(this, ListNeighbourActivity.class);
-        //startActivity(i);
-        this.onBackPressed();
-    }
-
-    @Subscribe
-    public void onFavoriteNeighbour(FavoriteNeighbourEvent event) {
-        Neighbour n = event.neighbour;
-        mApiService.createNeighbour(n);
-    }
-
-
 }
