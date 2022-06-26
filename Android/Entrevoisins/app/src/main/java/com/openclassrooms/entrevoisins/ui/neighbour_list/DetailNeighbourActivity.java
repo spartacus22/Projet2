@@ -105,8 +105,17 @@ public class DetailNeighbourActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(neighbour_url)
                 .into(avatar);
-        };
 
+        Boolean flag = detailNeighbour.getFavori();
+
+        if (flag) {
+            favori.setImageResource(R.drawable.ic_star_white_24dp);
+        }
+        else {
+            favori.setImageResource(R.drawable.ic_star_border_white_24dp);
+        }
+
+        };
 
     @Override
     public void onBackPressed() {
@@ -131,15 +140,15 @@ public class DetailNeighbourActivity extends AppCompatActivity {
 
         if (!flag) {
             favori.setImageResource(R.drawable.ic_star_white_24dp);
-            detailNeighbour.setFavori(true);
-            EventBus.getDefault().post(new FavoriteNeighbourEvent(detailNeighbour));
-            EventBus.getDefault().post(new DetailNeighbourEvent(detailNeighbour));
+            //detailNeighbour.setFavori(true);
+            mApiService.setFavoriteNeighbour(detailNeighbour,true);
+            //EventBus.getDefault().post(new FavoriteNeighbourEvent(detailNeighbour));
         }
         else {
             favori.setImageResource(R.drawable.ic_star_border_white_24dp);
-            detailNeighbour.setFavori(false);
-            EventBus.getDefault().post(new FavoriteNeighbourEvent(detailNeighbour));
-            EventBus.getDefault().post(new DetailNeighbourEvent(detailNeighbour));
+            mApiService.setFavoriteNeighbour(detailNeighbour, false);
+            //detailNeighbour.setFavori(false);
+            //EventBus.getDefault().post(new FavoriteNeighbourEvent(detailNeighbour));
         }
     }
 }

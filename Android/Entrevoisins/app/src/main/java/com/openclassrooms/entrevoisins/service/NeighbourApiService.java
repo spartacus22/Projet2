@@ -34,4 +34,10 @@ public interface NeighbourApiService {
      */
     void createNeighbour(Neighbour neighbour);
 
+    /**
+     * Create a favorite neighbour
+     * @param neighbour
+     */
+    void setFavoriteNeighbour(Neighbour neighbour, Boolean flag);
+
 }

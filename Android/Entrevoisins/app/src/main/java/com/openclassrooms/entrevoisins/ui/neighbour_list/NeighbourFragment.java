@@ -27,7 +27,7 @@ import java.util.List;
 
 public class NeighbourFragment extends Fragment {
 
-    private NeighbourApiService mApiService;
+    private static NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
     private RecyclerView mRecyclerView;
 
@@ -78,11 +78,12 @@ public class NeighbourFragment extends Fragment {
         EventBus.getDefault().register(this);
     }
 
-    @Override
+   @Override
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
+
 
     /**
      * Fired if the user clicks on a delete button
@@ -98,19 +99,12 @@ public class NeighbourFragment extends Fragment {
      * View neighbour details if the user clicks on a item
      * @param event
      */
-
     @Subscribe
     public void onDetailNeighbour(DetailNeighbourEvent event) {
         Neighbour n = event.neighbour;
         Intent intent = new Intent(this.getContext(), DetailNeighbourActivity.class);
-        mApiService.deleteNeighbour(n);
         intent.putExtra(DetailNeighbourActivity.NEIGHBOUR_KEY, n);
         ActivityCompat.startActivity(this.getContext(), intent, null);
-    }
-
-    @Subscribe
-    public void onFavoriteNeighbour(FavoriteNeighbourEvent event) {
-        Neighbour n = event.neighbour;
     }
 
 }
