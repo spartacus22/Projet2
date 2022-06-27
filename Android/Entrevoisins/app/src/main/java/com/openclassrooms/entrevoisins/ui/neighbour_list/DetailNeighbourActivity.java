@@ -68,21 +68,9 @@ public class DetailNeighbourActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_neighbour);
         ButterKnife.bind(this);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().hide();
         mApiService = DI.getNeighbourApiService();
         init();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home : {
-                finish();
-                return true;
-            }
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void init() {
@@ -117,19 +105,8 @@ public class DetailNeighbourActivity extends AppCompatActivity {
 
         };
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent();
-        intent.putExtra(NEIGHBOUR_KEY, detailNeighbour);
-        setResult(RESULT_OK, intent);
-        finish();
-        super.onBackPressed();
-    }
-
     @OnClick(R.id.backarrow)
     void backScreen() {
-        //Intent i = new Intent(this, ListNeighbourActivity.class);
-        //startActivity(i);
         finish();
     }
 
@@ -140,15 +117,11 @@ public class DetailNeighbourActivity extends AppCompatActivity {
 
         if (!flag) {
             favori.setImageResource(R.drawable.ic_star_white_24dp);
-            //detailNeighbour.setFavori(true);
             mApiService.setFavoriteNeighbour(detailNeighbour,true);
-            //EventBus.getDefault().post(new FavoriteNeighbourEvent(detailNeighbour));
         }
         else {
             favori.setImageResource(R.drawable.ic_star_border_white_24dp);
             mApiService.setFavoriteNeighbour(detailNeighbour, false);
-            //detailNeighbour.setFavori(false);
-            //EventBus.getDefault().post(new FavoriteNeighbourEvent(detailNeighbour));
         }
     }
 }

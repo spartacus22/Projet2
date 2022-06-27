@@ -30,13 +30,15 @@ public class NeighbourFragment extends Fragment {
     private static NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
     private RecyclerView mRecyclerView;
+    private boolean favoriteTab;
 
     /**
      * Create and return a new instance
      * @return @{@link NeighbourFragment}
      */
-    public static NeighbourFragment newInstance() {
+    public static NeighbourFragment newInstance(boolean favoriteTab) {
         NeighbourFragment fragment = new NeighbourFragment();
+        fragment.favoriteTab=favoriteTab;
         return fragment;
     }
 
@@ -62,7 +64,12 @@ public class NeighbourFragment extends Fragment {
      */
 
     private void initList() {
-        mNeighbours = mApiService.getNeighbours();
+        if (favoriteTab) {
+            mNeighbours = mApiService.getNeighboursFavorite();
+        } else {
+            mNeighbours = mApiService.getNeighbours();
+        }
+        //mNeighbours = mApiService.getNeighbours();
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
     }
 
