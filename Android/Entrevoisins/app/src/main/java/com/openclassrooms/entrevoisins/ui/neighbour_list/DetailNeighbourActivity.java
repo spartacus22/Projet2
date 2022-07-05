@@ -1,6 +1,7 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.button.MaterialButton;
@@ -38,11 +39,11 @@ public class DetailNeighbourActivity extends AppCompatActivity {
     @BindView(R.id.avatar2)
     ImageView avatar;
 
-    @BindView(R.id.name2)
-    TextView name;
+    @BindView(R.id.name)
+    TextView name_title;
 
-    @BindView(R.id.name3)
-    TextView name3;
+    @BindView(R.id.name_title)
+    TextView name;
 
     @BindView(R.id.address2)
     TextView address;
@@ -52,6 +53,9 @@ public class DetailNeighbourActivity extends AppCompatActivity {
 
     @BindView(R.id.phone2)
     TextView phone;
+
+    @BindView(R.id.facebook)
+    TextView social_network;
 
     @BindView(R.id.favorite_neighbour)
     ImageView favori;
@@ -83,11 +87,12 @@ public class DetailNeighbourActivity extends AppCompatActivity {
                     .getSerializable(NEIGHBOUR_KEY);
 
         }
+        name_title.setText(detailNeighbour.getName());
         name.setText(detailNeighbour.getName());
-        name3.setText(detailNeighbour.getName());
         address.setText(detailNeighbour.getAddress());
         aboutme.setText(detailNeighbour.getAboutMe());
         phone.setText(detailNeighbour.getPhoneNumber());
+        social_network.setText(("www.facecook.fr/" + detailNeighbour.getName()));
 
         Uri neighbour_url = Uri.parse(detailNeighbour.getAvatarUrl());
         Glide.with(this)
@@ -98,12 +103,10 @@ public class DetailNeighbourActivity extends AppCompatActivity {
 
         if (flag) {
             favori.setImageResource(R.drawable.ic_star_white_24dp);
-        }
-        else {
+        } else {
             favori.setImageResource(R.drawable.ic_star_border_white_24dp);
         }
-
-        };
+    }
 
     @OnClick(R.id.backarrow)
     void backScreen() {
@@ -118,10 +121,12 @@ public class DetailNeighbourActivity extends AppCompatActivity {
         if (!flag) {
             favori.setImageResource(R.drawable.ic_star_white_24dp);
             mApiService.setFavoriteNeighbour(detailNeighbour,true);
+            detailNeighbour.setFavori(true);
         }
         else {
             favori.setImageResource(R.drawable.ic_star_border_white_24dp);
             mApiService.setFavoriteNeighbour(detailNeighbour, false);
+            detailNeighbour.setFavori(false);
         }
     }
 }

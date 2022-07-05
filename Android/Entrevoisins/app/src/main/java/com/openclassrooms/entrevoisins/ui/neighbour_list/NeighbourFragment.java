@@ -69,7 +69,6 @@ public class NeighbourFragment extends Fragment {
         } else {
             mNeighbours = mApiService.getNeighbours();
         }
-        //mNeighbours = mApiService.getNeighbours();
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
     }
 
@@ -82,15 +81,20 @@ public class NeighbourFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
+        if (!favoriteTab){
+            EventBus.getDefault().register(this);
+        }
+
     }
 
    @Override
     public void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
+        if (!favoriteTab){
+            EventBus.getDefault().unregister(this);
+        }
 
+    }
 
     /**
      * Fired if the user clicks on a delete button
