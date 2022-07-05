@@ -1,7 +1,9 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +15,8 @@ import android.view.ViewGroup;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
+import com.openclassrooms.entrevoisins.events.DetailNeighbourEvent;
+import com.openclassrooms.entrevoisins.events.FavoriteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
@@ -21,20 +25,20 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
-
 public class NeighbourFragment extends Fragment {
 
-    private NeighbourApiService mApiService;
+    private static NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
     private RecyclerView mRecyclerView;
-
+    private boolean favoriteTab;
 
     /**
      * Create and return a new instance
      * @return @{@link NeighbourFragment}
      */
-    public static NeighbourFragment newInstance() {
+    public static NeighbourFragment newInstance(boolean favoriteTab) {
         NeighbourFragment fragment = new NeighbourFragment();
+        fragment.favoriteTab=favoriteTab;
         return fragment;
     }
 
@@ -58,8 +62,13 @@ public class NeighbourFragment extends Fragment {
     /**
      * Init the List of neighbours
      */
+
     private void initList() {
-        mNeighbours = mApiService.getNeighbours();
+        if (favoriteTab) {
+            mNeighbours = mApiService.getNeighboursFavorite();
+        } else {
+            mNeighbours = mApiService.getNeighbours();
+        }
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
     }
 
@@ -72,13 +81,19 @@ public class NeighbourFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
+        if (!favoriteTab){
+            EventBus.getDefault().register(this);
+        }
+
     }
 
-    @Override
+   @Override
     public void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
+        if (!favoriteTab){
+            EventBus.getDefault().unregister(this);
+        }
+
     }
 
     /**
@@ -90,4 +105,17 @@ public class NeighbourFragment extends Fragment {
         mApiService.deleteNeighbour(event.neighbour);
         initList();
     }
+
+    /**
+     * View neighbour details if the user clicks on a item
+     * @param event
+     */
+    @Subscribe
+    public void onDetailNeighbour(DetailNeighbourEvent event) {
+        Neighbour n = event.neighbour;
+        Intent intent = new Intent(this.getContext(), DetailNeighbourActivity.class);
+        intent.putExtra(DetailNeighbourActivity.NEIGHBOUR_KEY, n);
+        ActivityCompat.startActivity(this.getContext(), intent, null);
+    }
+
 }

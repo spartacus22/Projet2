@@ -1,11 +1,14 @@
 package com.openclassrooms.entrevoisins.model;
 
 import java.util.Objects;
+import java.io.Serializable;
 
 /**
  * Model object representing a Neighbour
  */
-public class Neighbour {
+
+@SuppressWarnings("serial") //With this annotation we are going to hide compiler warnings
+public class Neighbour implements Serializable {
 
     /** Identifier */
     private long id;
@@ -25,6 +28,10 @@ public class Neighbour {
     /** About me */
     private String aboutMe;
 
+    /** Favori */
+
+    private Boolean favori;
+
     /**
      * Constructor
      * @param id
@@ -39,6 +46,7 @@ public class Neighbour {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.aboutMe = aboutMe;
+        this.favori = false;
     }
 
     public long getId() {
@@ -88,6 +96,10 @@ public class Neighbour {
     public void setAboutMe(String aboutMe) {
         this.aboutMe = aboutMe;
     }
+
+    public Boolean getFavori() { return favori;}
+
+    public void setFavori(Boolean favori) {this.favori = favori; }
 
     @Override
     public boolean equals(Object o) {

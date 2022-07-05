@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.neighbour_list.DetailNeighbourActivity"
+            android:label="Details" />
+        <activity
             android:name=".ui.neighbour_list.AddNeighbourActivity"
             android:label="@string/activity_new_neighbour" />
         <activity
@@ -21,7 +24,6 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
