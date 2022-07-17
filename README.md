@@ -31,3 +31,12 @@ L'ajout de cette fonctionnalité a nécessité :
 - deleteNeighbourWithSuccess() : teste la methode deleteNeighbour() en vérfiant l'absence d'un voisin dans la liste des voisins existants après l'avoir supprimé
 - addNeighbourWithSuccess() : teste la méthode createNeighbour() en vérifiant la présence d'un voisin dans la liste après l'avoir créé.
 - addFavoriteWithSuccess() : modifie l'attribut isFavori d'un voisin et vérifie sa présence dans la liste des favoris
+
+5. Complication / Execution
+
+La compilation du projet 'Entrevoisins' sous Android Studio s'effectue en allant dans le menu Build/Make Project après avoir ouvert le projet.
+
+Pour lancer/exécuter l'application sur un émulateur, il faut :
+	-  créer un équipement virtuel à l'aide du Virtual Device Manager. Cette fenêtre est accessible par le menu Tools/Device Manager. Un équipement virtuel correspond à l'association d'un type d'équipement (la partie matérielle) avec une version d'Android (la partie logicielle). Dans le cas le projet a été construit un Pixel 4a API30 sous Android 11.0.
+	- sélectionner l'équipement virtuel créé dans la barre de l'IDE
+	- cliquer sur l’icone vert en forme de play dans la barre de l'IDE (ou menu run/run 'app')
