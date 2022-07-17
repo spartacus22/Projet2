@@ -31,6 +31,7 @@ public class NeighbourFragment extends Fragment {
     private List<Neighbour> mNeighbours;
     private RecyclerView mRecyclerView;
     private boolean favoriteTab;
+    private boolean isCurrentPage;
 
     /**
      * Create and return a new instance
@@ -81,20 +82,31 @@ public class NeighbourFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (!favoriteTab){
+        //if (!favoriteTab){
             EventBus.getDefault().register(this);
-        }
-
+        //}
     }
 
    @Override
     public void onStop() {
         super.onStop();
-        if (!favoriteTab){
+        //if (!favoriteTab){
             EventBus.getDefault().unregister(this);
-        }
-
+        //}
     }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (isVisibleToUser) {
+            isCurrentPage = true;
+        } else
+        {
+            isCurrentPage = false;
+        }
+    }
+
 
     /**
      * Fired if the user clicks on a delete button
@@ -113,9 +125,11 @@ public class NeighbourFragment extends Fragment {
     @Subscribe
     public void onDetailNeighbour(DetailNeighbourEvent event) {
         Neighbour n = event.neighbour;
-        Intent intent = new Intent(this.getContext(), DetailNeighbourActivity.class);
-        intent.putExtra(DetailNeighbourActivity.NEIGHBOUR_KEY, n);
-        ActivityCompat.startActivity(this.getContext(), intent, null);
+        if (isCurrentPage) {
+            Intent intent = new Intent(this.getContext(), DetailNeighbourActivity.class);
+            intent.putExtra(DetailNeighbourActivity.NEIGHBOUR_KEY, n);
+            ActivityCompat.startActivity(this.getContext(), intent, null);
+        }
     }
 
 }

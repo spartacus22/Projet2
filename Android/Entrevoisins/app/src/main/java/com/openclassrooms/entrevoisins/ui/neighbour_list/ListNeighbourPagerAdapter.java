@@ -26,7 +26,7 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
                 return NeighbourFragment.newInstance(true);
             }
             default:
-                return NeighbourFragment.newInstance(false);
+                return null;
         }
        // return NeighbourFragment.newInstance(false);
     }
@@ -39,4 +39,6 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return 2;
     }
+
+
 }
